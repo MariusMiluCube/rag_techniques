@@ -54,5 +54,9 @@ def encode_pdf(path, chunk_size=1000, chunk_overlap=200):
 
 
 chunk_vectore_store = encode_pdf(path, chunk_size=1000, chunk_overlap=200)
-
-print(chunk_vectore_store)
+chunks_query_retriever = chunk_vectore_store.as_retriever(search_kwargs={
+                                                          'k': 2})
+test_query = 'What is the main cause of climate change'
+context = retrieve_context_per_question(test_query, chunks_query_retriever)
+# print(show_context(context))
+# print(evaluate_rag(chunks_query_retriever))
